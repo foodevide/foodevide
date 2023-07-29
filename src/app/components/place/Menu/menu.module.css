@@ -1,0 +1,33 @@
+.desc {
+
+    width: 100%;
+}
+
+.desc>.menu {
+    display: flex;
+    padding: 1rem;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    opacity: .8;
+    border-radius: 20px;
+    background: var(--black-2);
+    color: var(--white);
+    font-size: 21px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+
+.desc>p {
+    padding-top: 20px;
+    color: var(--black);
+    text-align: center;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+.menu>p{
+    font-size: 12px;
+}
