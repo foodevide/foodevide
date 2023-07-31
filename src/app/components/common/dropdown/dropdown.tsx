@@ -29,7 +29,7 @@ export default function DropdownMenuRadioGroupDemo() {
         <DropdownMenuLabel>I&apos;m looking for</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuRadioGroup value={position} onValueChange={setPosition}>
-          <DropdownMenuRadioItem value="All">Anyting</DropdownMenuRadioItem>
+          <DropdownMenuRadioItem value="All">Everything</DropdownMenuRadioItem>
           <DropdownMenuRadioItem value="Break Fast">Break Fast</DropdownMenuRadioItem>
           <DropdownMenuRadioItem value="Lunch">Lunch</DropdownMenuRadioItem>
           <DropdownMenuRadioItem value="Dinner">Dinner</DropdownMenuRadioItem>

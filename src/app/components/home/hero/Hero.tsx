@@ -4,7 +4,7 @@ import styles from './hero.module.css'
 // import { Dropdown } from "@nextui-org/react";
 import  DropdownMenuRadioGroupDemo  from '../../common/dropdown/dropdown'
 import { useEffect, useState } from 'react';
-
+import { motion } from "framer-motion"
 const meow = Meow_Script({ subsets: ['latin'], weight: ['400'] })
 interface MapboxFeature {
     id: string;
@@ -57,18 +57,45 @@ export default function Hero() {
         <>
             <section className={styles.hero}>
                 <div className={meow.className}>
-                    <h1>foodevide</h1>
+                    <motion.h1
+                    viewport={{ once: true }}
+                    initial={{ y: -60 ,opacity: 0, scale: 0.5}}
+                    animate={{
+                      y: 0,
+                      opacity: 1,
+                      scale: 1,
+                      transition: { type: "spring", mass: 1.25, delay: 0.5 },
+                  }}
+                    >foodevide</motion.h1>
                 </div>
-                <div>
+                <motion.div
+                viewport={{ once: true }}
+                initial={{ y: -60 ,opacity: 0, scale: 0.5}}
+                animate={{
+                  y: 0,
+                  opacity: 1,
+                  scale: 1,
+                  transition: { type: "spring", mass: 1.25, delay: 0.7 },
+              }}
+                >
                     <h3>Find The Best Places <span>Near You</span></h3>
-                </div>
-                <div>
+                </motion.div>
+                <motion.div
+                 viewport={{ once: true }}
+                 initial={{ y: -60 ,opacity: 0, scale: 0.5}}
+                 animate={{
+                   y: 0,
+                   opacity: 1,
+                   scale: 1,
+                   transition: { type: "spring", mass: 1.25, delay: 1 },
+               }}
+                >
                     <p>{userCity}</p>
                     <span>
                     <DropdownMenuRadioGroupDemo/>
                     </span>
 
-                </div>
+                </motion.div>
             </section>
 
         </>
