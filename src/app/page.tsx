@@ -31,7 +31,7 @@ export default function Home() {
         }}
         className={styles.cards}>
         {placesData.map((item: any, index: number) => (
-          <Card card_data={item} />
+          <Card key={index} card_data={item} />
         ))}
       </motion.div>
     </main>
