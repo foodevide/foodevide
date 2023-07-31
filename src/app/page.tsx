@@ -3,14 +3,12 @@ import Card from "./components/home/card/Card"
 import placesData from "./components/data/placesData"
 import styles from './layout.module.css'
 import Hero from "./components/home/hero/Hero"
-import { motion, AnimatePresence, useInView } from "framer-motion"
+import { motion } from "framer-motion"
 import { useRef } from "react";
-import { useState, useEffect } from "react";
 
 export default function Home() {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true });
-
+  const placesDataArray = Object.values(placesData)
   return (
     <main className={styles.main}>
       <Hero />
@@ -30,7 +28,7 @@ export default function Home() {
           }
         }}
         className={styles.cards}>
-        {placesData.map((item: any, index: number) => (
+        {placesDataArray.map((item: any, index: number) => (
           <Card key={index} card_data={item} />
         ))}
       </motion.div>

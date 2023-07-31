@@ -1,11 +1,13 @@
 import styles from './card.module.css'
 import { useRef } from "react";
-import { motion, AnimatePresence, useInView } from "framer-motion"
+import { motion, useInView } from "framer-motion"
 import { useState, useEffect } from "react";
+import { useRouter } from 'next/navigation'
 
 export default function Card({ card_data }: any) {
     const ref = useRef(null);
     const isInView = useInView(ref, { once: true });
+    const router = useRouter()
     const cardVariants = {
         visible: {
             y: 0,
@@ -15,14 +17,16 @@ export default function Card({ card_data }: any) {
         },
         hidden: { y: 60, opacity: 0, scale: 0.7 }
     };
+
     return (
         <>
             <motion.div
-             variants={cardVariants}
-             animate={isInView ? 'visible' : 'hidden'}
-             initial="hidden"
-             whileHover={{ scale: 1.05 }}
-             whileTap={{ scale: 0.9 }}
+                onClick={() => router.push(`/${card_data.id}`)}
+                variants={cardVariants}
+                animate={isInView ? 'visible' : 'hidden'}
+                initial="hidden"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.9 }}
                 ref={ref}
                 className={styles.card}
                 style={{ background: `url(${card_data.image})` }}
