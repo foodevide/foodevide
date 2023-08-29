@@ -4,11 +4,33 @@ import placesData from "./components/data/placesData"
 import styles from './layout.module.css'
 import Hero from "./components/home/hero/Hero"
 import { motion } from "framer-motion"
-import { useRef } from "react";
-
+import { useRef,useState,useEffect } from "react";
+import { fetchData ,FoodItem } from '@/api/api';
 export default function Home() {
+  const [data, setData] = useState<FoodItem[] | null>(null);
+  const [coordinates, setCoordinates] = useState({ latitude: 11.185090602871435, longitude: 75.84348437029456 });
+  useEffect(() => {
+    if ('geolocation' in navigator) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const { latitude, longitude } = position.coords;
+          setCoordinates({ latitude, longitude });
+        },
+        (error) => {
+          console.error('Error getting coordinates:', error);
+        }
+      );
+    } else {
+      console.error('Geolocation is not available in this browser.');
+    }
+  }, []);
+  useEffect(() => {
+      fetchData(coordinates.latitude, coordinates.longitude)
+        .then((fetchedData) => setData(fetchedData))
+        .catch((error) => console.error('Error fetching data:', error));
+    }, []);
   const ref = useRef(null);
-  const placesDataArray = Object.values(placesData)
+  const placesDataArray = data
   return (
     <main className={styles.main}>
       <Hero />
@@ -28,7 +50,7 @@ export default function Home() {
           }
         }}
         className={styles.cards}>
-        {placesDataArray.map((item: any, index: number) => (
+        {placesDataArray?.map((item: any, index: number) => (
           <Card key={index} card_data={item} />
         ))}
       </motion.div>

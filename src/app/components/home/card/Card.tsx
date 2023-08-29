@@ -32,13 +32,14 @@ export default function Card({ card_data }: any) {
                 style={{ background: `url(${card_data.image})` }}
             >
                 <div>
-                    <div className={styles.rating}><span className="material-symbols-outlined">
+                    <div className={styles.rating}>
+                        <span className="material-symbols-outlined">
                         star
                     </span>
-                        <p>{card_data.rating}</p>
+                        <p>{parseFloat(card_data.rating).toFixed(1)}</p>
                     </div>
                     <div className={styles.distance}>
-                        <span>{card_data.distance}</span>
+                        <span>{card_data.distance_km} Km</span>
                     </div>
                 </div>
                 <div>
