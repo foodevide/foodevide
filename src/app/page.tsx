@@ -4,22 +4,37 @@ import placesData from "./components/data/placesData"
 import styles from './layout.module.css'
 import Hero from "./components/home/hero/Hero"
 import { motion } from "framer-motion"
-import { useRef, useState, useEffect } from "react";
-import { fetchData, FoodItem } from '@/api/api';
+import { useRef,useState,useEffect } from "react";
+import { fetchData ,FoodItem } from '@/api/api';
 export default function Home() {
+  const defaultData =[
+    {
+      "id": 1,
+      "name": "Grand Bakers",
+      "image": "https://foodevide.pythonanywhere.com/media/default/restarant.jpg",
+      "rating": "4.00",
+      "time": "9 am–9 pm",
+      "location": "11.18427809170044, 75.84360128556725",
+      "categories": [
+          1,
+          4,
+          5
+      ],
+      "reel": "https://n48331.github.io/",
+      "distance_km": "0.09"
+  }
+  ]
   const [data, setData] = useState<FoodItem[] | null>(null);
   const [coordinates, setCoordinates] = useState({ latitude: 0, longitude: 0 });
   useEffect(() => {
     if ('geolocation' in navigator) {
+     
       navigator.geolocation.getCurrentPosition(
         (position) => {
           const { latitude, longitude } = position.coords;
-          console.log(latitude,longitude);
+          
           setCoordinates({ latitude, longitude });
-          fetchData(coordinates.latitude, coordinates.longitude)
-            .then((fetchedData) => setData(fetchedData))
-            .catch((error) => console.error('Error fetching data:', error));
-            
+          
         },
         (error) => {
           console.error('Error getting coordinates:', error);
@@ -29,9 +44,12 @@ export default function Home() {
       console.error('Geolocation is not available in this browser.');
     }
   }, []);
-
+  useEffect(() => {
+      fetchData(coordinates.latitude, coordinates.longitude)
+        .then((fetchedData) => setData(fetchedData ?? defaultData))
+        .catch((error) => console.error('Error fetching data:', error));
+    }, [coordinates]);
   const ref = useRef(null);
-  console.log(data);
   
   return (
     <main className={styles.main}>
@@ -52,13 +70,11 @@ export default function Home() {
           }
         }}
         className={styles.cards}>
-        {data?.length == 0 ?
-          `No Foodspots near you, Current location: ${coordinates.latitude}, ${coordinates.longitude}.`
-          :
-          data?.map((item: any, index: number) => (
-            <Card key={index} card_data={item} />
-          ))
-        }
+          {data?.length==0?"No Foodspots near you":
+        data?.map((item: any, index: number) => (
+          <Card key={index} card_data={item} />
+          ))}
+        
       </motion.div>
     </main>
   )
