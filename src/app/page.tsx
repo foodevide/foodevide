@@ -53,7 +53,7 @@ export default function Home() {
         }}
         className={styles.cards}>
         {data?.length == 0 ?
-          `No Foodspots near you, Current location: ${coordinates.latitude}, ${coordinates.longitude}`
+          `No Foodspots near you, Current location: ${coordinates.latitude}, ${coordinates.longitude}.`
           :
           data?.map((item: any, index: number) => (
             <Card key={index} card_data={item} />
