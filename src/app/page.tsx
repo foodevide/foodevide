@@ -4,17 +4,23 @@ import placesData from "./components/data/placesData"
 import styles from './layout.module.css'
 import Hero from "./components/home/hero/Hero"
 import { motion } from "framer-motion"
-import { useRef,useState,useEffect } from "react";
-import { fetchData ,FoodItem } from '@/api/api';
+import { useRef, useState, useEffect } from "react";
+import { fetchData, FoodItem } from '@/api/api';
 export default function Home() {
   const [data, setData] = useState<FoodItem[] | null>(null);
-  const [coordinates, setCoordinates] = useState({ latitude: 11.185090602871435, longitude: 75.84348437029456 });
+  const [coordinates, setCoordinates] = useState({ latitude: 0, longitude: 0 });
   useEffect(() => {
     if ('geolocation' in navigator) {
+
+
       navigator.geolocation.getCurrentPosition(
         (position) => {
           const { latitude, longitude } = position.coords;
+
           setCoordinates({ latitude, longitude });
+          fetchData(coordinates.latitude, coordinates.longitude)
+            .then((fetchedData) => setData(fetchedData))
+            .catch((error) => console.error('Error fetching data:', error));
         },
         (error) => {
           console.error('Error getting coordinates:', error);
@@ -24,13 +30,12 @@ export default function Home() {
       console.error('Geolocation is not available in this browser.');
     }
   }, []);
-  useEffect(() => {
-      fetchData(coordinates.latitude, coordinates.longitude)
-        .then((fetchedData) => setData(fetchedData))
-        .catch((error) => console.error('Error fetching data:', error));
-    }, []);
+
   const ref = useRef(null);
+
   const placesDataArray = data
+  console.log(data);
+  
   return (
     <main className={styles.main}>
       <Hero />
@@ -50,9 +55,13 @@ export default function Home() {
           }
         }}
         className={styles.cards}>
-        {placesDataArray?.map((item: any, index: number) => (
-          <Card key={index} card_data={item} />
-        ))}
+        {placesDataArray?.length == 0 ?
+          'No Foodspots near you'
+          :
+          placesDataArray?.map((item: any, index: number) => (
+            <Card key={index} card_data={item} />
+          ))
+        }
       </motion.div>
     </main>
   )

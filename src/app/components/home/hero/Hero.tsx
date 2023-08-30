@@ -29,19 +29,19 @@ export default function Hero() {
                       setUserCity(city.text);
                     } else {
                       // Handle error or fallback to a default city
-                      setUserCity('City not found');
+                      setUserCity('Please enable location');
                     }
                   })
                   .catch(error => {
                     // Handle error or fallback to a default city
                     console.error('Error fetching location:', error);
-                    setUserCity('City not found');
+                    setUserCity('Please enable location');
                   });
               },
               error => {
                 // Handle geolocation error or fallback to a default city
                 console.error('Geolocation error:', error);
-                setUserCity('City not found');
+                setUserCity('Please enable location');
               }
             );
           } else {
