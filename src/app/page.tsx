@@ -11,8 +11,6 @@ export default function Home() {
   const [coordinates, setCoordinates] = useState({ latitude: 0, longitude: 0 });
   useEffect(() => {
     if ('geolocation' in navigator) {
-
-
       navigator.geolocation.getCurrentPosition(
         (position) => {
           const { latitude, longitude } = position.coords;
@@ -21,6 +19,7 @@ export default function Home() {
           fetchData(coordinates.latitude, coordinates.longitude)
             .then((fetchedData) => setData(fetchedData))
             .catch((error) => console.error('Error fetching data:', error));
+            
         },
         (error) => {
           console.error('Error getting coordinates:', error);
@@ -32,7 +31,6 @@ export default function Home() {
   }, []);
 
   const ref = useRef(null);
-
   console.log(data);
   
   return (
@@ -55,7 +53,7 @@ export default function Home() {
         }}
         className={styles.cards}>
         {data?.length == 0 ?
-          'No Foodspots near you'
+          `No Foodspots near you, Current location: ${coordinates.latitude}, ${coordinates.longitude}`
           :
           data?.map((item: any, index: number) => (
             <Card key={index} card_data={item} />
