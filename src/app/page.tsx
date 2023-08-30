@@ -16,7 +16,7 @@ export default function Home() {
       navigator.geolocation.getCurrentPosition(
         (position) => {
           const { latitude, longitude } = position.coords;
-
+          console.log(latitude,longitude);
           setCoordinates({ latitude, longitude });
           fetchData(coordinates.latitude, coordinates.longitude)
             .then((fetchedData) => setData(fetchedData))
@@ -33,7 +33,6 @@ export default function Home() {
 
   const ref = useRef(null);
 
-  const placesDataArray = data
   console.log(data);
   
   return (
@@ -55,10 +54,10 @@ export default function Home() {
           }
         }}
         className={styles.cards}>
-        {placesDataArray?.length == 0 ?
+        {data?.length == 0 ?
           'No Foodspots near you'
           :
-          placesDataArray?.map((item: any, index: number) => (
+          data?.map((item: any, index: number) => (
             <Card key={index} card_data={item} />
           ))
         }
