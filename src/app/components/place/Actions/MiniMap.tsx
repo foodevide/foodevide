@@ -25,8 +25,10 @@ const MiniMap: React.FC<MapProps> = ({ latitude, longitude }) => {
         }
     }, [location]);
     const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+    console.log(navigator.userAgent);
+    
     const mapUrl = isIOS
-    ? `applemaps://maps?q=${latitude},${longitude}`
+    ? `maps://maps?q=${latitude},${longitude}`
     : `https://maps.google.com/maps?q=${latitude},${longitude}`;
     const openMap = () => {
         if (isIOS) {
