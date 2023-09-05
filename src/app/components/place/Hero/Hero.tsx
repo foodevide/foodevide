@@ -1,17 +1,26 @@
 import styles from './hero.module.css'
-
-
-
-export default function Hero() {
-
+import { useEffect, useState } from 'react';
+import React from 'react';
+interface HeroProps {
+    imgURL: string;
+    name: string;
+  }
+const Hero:React.FC<HeroProps> = ({ imgURL, name }) => {
+    const [heroData, setheroData] = useState({imgURL:'',name:''});
+    useEffect(() => {
+       setheroData({imgURL,name})
+      }, [name]);
+      console.log("here: ",name);
+      
     return (
         <>
-            <section className={styles.banner} style={{background:'url(/images/places/1.jpg)'}}>
+            <section className={styles.banner} style={{background:`url(${heroData.imgURL})`,backgroundSize:'contain'}}>
                 <div>
-                    <h4>Grand Hotel</h4>
+                    <h4>{heroData?.name}</h4>
                 </div>
             </section>
 
         </>
     )
 }
+export default Hero;

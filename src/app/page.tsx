@@ -5,7 +5,7 @@ import styles from './layout.module.css'
 import Hero from "./components/home/hero/Hero"
 import { motion } from "framer-motion"
 import { useRef, useState, useEffect } from "react";
-import { fetchData, FoodItem } from '@/api/api';
+import { fetchData, FoodSpots } from '@/api/api';
 export default function Home() {
   const defaultData = [
     {
@@ -24,8 +24,8 @@ export default function Home() {
       "distance_km": "0.09"
     }
   ]
-  const [data, setData] = useState<FoodItem[] | null>(null);
-  const [coordinates, setCoordinates] = useState({ latitude: 0, longitude: 0 });
+  const [data, setData] = useState<FoodSpots[] | null>(null);
+  const [coordinates, setCoordinates] = useState({ latitude:11.00000000000000, longitude: 75.0000000000000 });
   useEffect(() => {
     if ('geolocation' in navigator) {
 

@@ -2,7 +2,7 @@ import styles from './minimap.module.css'
 
 
 
-export default function MiniMap() {
+export default function MiniMap({location}:{location:string}) {
 
     return (
         <>
