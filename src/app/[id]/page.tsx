@@ -26,7 +26,7 @@ export default function Place({
       4,
       5
     ],
-    "reel": "https://n48331.github.io/",
+    "reel": "",
     "distance_km": "0.09"
   }
   const [data, setData] = useState<FoodSpot | null>(null);
@@ -36,7 +36,10 @@ export default function Place({
       .catch((error) => console.error('Error fetching data:', error));
   }, [params.id]);
 
-console.log("id",data?.location);
+const location: string = data?.location || '';
+const [latitude, longitude]: number[] = location.split(',').map(coord => parseFloat(coord.trim()));
+
+
 
   return (
     <main className={styles.main}>
@@ -45,14 +48,14 @@ console.log("id",data?.location);
         <>
           <Hero name={data.name || ''} imgURL={data.image || 'https://foodevide.pythonanywhere.com/media/default/restarant.jpg'} />
           <div className={styles.actions}>
-            <MiniMap location={data.location} />
+            <MiniMap latitude={latitude} longitude={longitude} />
             <Reel reeLink={data.reel || ''} />
           </div>
           <Menu />
         </>
       )
         :
-        'Error Fetching Data'}
+        'Fetching Data.........'}
 
     </main>
   )
