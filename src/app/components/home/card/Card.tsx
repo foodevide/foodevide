@@ -25,7 +25,7 @@ export default function Card({ card_data }: any) {
                 animate={isInView ? 'visible' : 'hidden'}
                 initial="hidden"
                 whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.999 }}
+                whileTap={{ scale: 0.95 }}
                 ref={ref}
                 className={styles.card}
                 style={{ background: `url(${card_data.image})`,backgroundSize:'contain' }}
