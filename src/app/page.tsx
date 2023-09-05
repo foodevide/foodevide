@@ -25,7 +25,7 @@ export default function Home() {
     }
   ]
   const [data, setData] = useState<FoodSpots[] | null>(null);
-  const [coordinates, setCoordinates] = useState({ latitude:11.00000000000000, longitude: 75.0000000000000 });
+  const [coordinates, setCoordinates] = useState({ latitude:0, longitude: 0 });
   useEffect(() => {
     if ('geolocation' in navigator) {
 

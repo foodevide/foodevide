@@ -16,10 +16,9 @@ export interface FoodSpot {
 
 export async function fetchData(latitude: number, longitude: number): Promise<FoodSpots[] | null> {
   const apiUrl = `https://foodevide.pythonanywhere.com/api/?latitude=${latitude}&longitude=${longitude}`;
-  // const apiUrl = `https://foodevide.pythonanywhere.com/api/?latitude=${latitude}&longitude=${longitude}`;
   try {
     const response = await axios.get(apiUrl);
-    return response.data as FoodSpots[]; // Assuming the API response is an array of FoodSpots objects
+    return response.data as FoodSpots[]; 
   } catch (error) {
     console.error('Error fetching data:', error);
     return null;
@@ -30,7 +29,7 @@ export async function fetchDetail(id: number): Promise<FoodSpot | null> {
   const apiUrl = `https://foodevide.pythonanywhere.com/api/foodspots/${id}`; // Use the specific ID in the URL
   try {
     const response = await axios.get(apiUrl);
-    return response.data as FoodSpot; // Assuming the API response is a single FoodSpot object
+    return response.data as FoodSpot;
   } catch (error) {
     console.error('Error fetching data:', error);
     return null;
