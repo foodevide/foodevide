@@ -10,7 +10,7 @@ const Hero:React.FC<HeroProps> = ({ imgURL, name }) => {
     useEffect(() => {
        setheroData({imgURL,name})
       }, [name]);
-      console.log("here: ",name);
+    
       
     return (
         <>
