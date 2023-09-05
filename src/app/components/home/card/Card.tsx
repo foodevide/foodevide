@@ -1,7 +1,6 @@
 import styles from './card.module.css'
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion"
-import { useState, useEffect } from "react";
 import { useRouter } from 'next/navigation'
 
 export default function Card({ card_data }: any) {
@@ -26,7 +25,7 @@ export default function Card({ card_data }: any) {
                 animate={isInView ? 'visible' : 'hidden'}
                 initial="hidden"
                 whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.9 }}
+                whileTap={{ scale: 0.999 }}
                 ref={ref}
                 className={styles.card}
                 style={{ background: `url(${card_data.image})`,backgroundSize:'contain' }}
