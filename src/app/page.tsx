@@ -10,9 +10,9 @@ export default function Home() {
   const defaultData = [
     {
       "id": 1,
-      "name": "Grand Bakers",
+      "name": "NO Data",
       "image": "https://foodevide.pythonanywhere.com/media/default/restarant.jpg",
-      "rating": "4.00",
+      "rating": "5.00",
       "time": "9 am–9 pm",
       "location": "11.18427809170044, 75.84360128556725",
       "categories": [

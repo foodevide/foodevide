@@ -36,6 +36,7 @@ export default function Place({
       .catch((error) => console.error('Error fetching data:', error));
   }, [params.id]);
 
+console.log("id",data?.location);
 
   return (
     <main className={styles.main}>
@@ -44,7 +45,7 @@ export default function Place({
         <>
           <Hero name={data.name || ''} imgURL={data.image || 'https://foodevide.pythonanywhere.com/media/default/restarant.jpg'} />
           <div className={styles.actions}>
-            <MiniMap location={data.location || ''} />
+            <MiniMap location={data.location} />
             <Reel reeLink={data.reel || ''} />
           </div>
           <Menu />
