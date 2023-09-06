@@ -9,6 +9,7 @@
     /* background: url(../home/images/1.jpg), lightgray 50% / cover no-repeat; */
     /* box-shadow: 4px 4px 8px 0px rgba(0, 0, 0, 0.25); */
     overflow: hidden;
+    background-size: contain !important;
 
 }
 
@@ -23,8 +24,8 @@
     font-family: 'Noto Sans', sans-serif;
     color: var(--yellow);
     display: flex;
-    align-items: center;
-    justify-content: baseline;
+    align-items:safe;
+    justify-content: center;
     gap: 2px;
     font-size: 16px;
     font-weight: 400;
@@ -61,7 +62,8 @@
 .card>div:nth-child(2)>p{
     font-size: 12px;
     color: #ffffff6e;
-    font-weight:400;;
+    font-weight:400;
+    text-transform: uppercase;
 }
 @media screen and (min-width:475px) {
 

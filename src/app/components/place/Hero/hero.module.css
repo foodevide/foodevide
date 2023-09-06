@@ -10,7 +10,8 @@
     /* background: url(../home/images/1.jpg), lightgray 50% / cover no-repeat; */
     box-shadow: 4px 4px 8px 0px rgba(0, 0, 0, 0.25);
     overflow: hidden;
-
+    background-size: contain !important;
+    background-repeat: no-repeat;
 }
 
 .banner>div {

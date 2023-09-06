@@ -1,7 +1,6 @@
 import styles from './card.module.css'
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion"
-import { useState, useEffect } from "react";
 import { useRouter } from 'next/navigation'
 
 export default function Card({ card_data }: any) {
@@ -26,19 +25,20 @@ export default function Card({ card_data }: any) {
                 animate={isInView ? 'visible' : 'hidden'}
                 initial="hidden"
                 whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.9 }}
+                whileTap={{ scale: 0.95 }}
                 ref={ref}
                 className={styles.card}
-                style={{ background: `url(${card_data.image})` }}
+                style={{ background: `url(${card_data.image})`,backgroundSize:'contain' }}
             >
                 <div>
-                    <div className={styles.rating}><span className="material-symbols-outlined">
+                    <div className={styles.rating}>
+                        <span className="material-symbols-outlined">
                         star
                     </span>
-                        <p>{card_data.rating}</p>
+                        <p>{parseFloat(card_data.rating).toFixed(1)}</p>
                     </div>
                     <div className={styles.distance}>
-                        <span>{card_data.distance}</span>
+                        <span>{card_data.distance_km} Km</span>
                     </div>
                 </div>
                 <div>
