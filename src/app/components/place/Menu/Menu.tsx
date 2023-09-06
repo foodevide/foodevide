@@ -7,18 +7,14 @@ export default function Menu() {
 
     return (
         <>
-               <section className={styles.desc}>
-            <div className={styles.menu} >
-                Show Menu <p>(coming soon)</p>
-            </div>
-            <p className={lato.className}>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-                dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
-                deserunt mollit anim id est laborum.</p>
-        <div id="locationList"></div>
+            <section className={styles.desc}>
+                <div className={styles.menu} >
+                    Show Menu <p>(coming soon)</p>
+                </div>
+                <p className={lato.className}>Locations are based on pin point coordinates. Places shown in your map apps amy differ. However the spot will be in exact location.</p>
+                <div id="locationList"></div>
 
-        </section>
+            </section>
 
         </>
     )
