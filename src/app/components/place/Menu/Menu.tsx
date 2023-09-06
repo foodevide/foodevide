@@ -11,7 +11,7 @@ export default function Menu() {
                 <div className={styles.menu} >
                     Show Menu <p>(coming soon)</p>
                 </div>
-                <p className={lato.className}>Locations are based on pin point coordinates. Places shown in your map apps amy differ. However the spot will be in exact location.</p>
+                <p className={lato.className}>Locations are based on pin point coordinates. Places shown in your Map App may differ. However the spot will be in exact location.</p>
                 <div id="locationList"></div>
 
             </section>
