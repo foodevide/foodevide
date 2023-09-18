@@ -1,31 +1,20 @@
 "use client";
+import { ReactNode } from "react";
+
 import Card from "./components/home/card/Card"
 import placesData from "./components/data/placesData"
 import styles from './layout.module.css'
 import Hero from "./components/home/hero/Hero"
-import { motion } from "framer-motion"
+import { motion, AnimatePresence } from "framer-motion"
 import { useRef, useState, useEffect } from "react";
 import { fetchData, FoodSpots } from '@/api/api';
 export default function Home() {
-  const defaultData = [
-    {
-      "id": 1,
-      "name": "NO Data",
-      "image": "https://foodevide.pythonanywhere.com/media/default/restarant.jpg",
-      "rating": "5.00",
-      "time": "9 am–9 pm",
-      "location": "11.18427809170044, 75.84360128556725",
-      "categories": [
-        1,
-        4,
-        5
-      ],
-      "reel": "https://n48331.github.io/",
-      "distance_km": "0.09"
-    }
-  ]
   const [data, setData] = useState<FoodSpots[] | null>(null);
-  const [coordinates, setCoordinates] = useState({ latitude:11.00000000000000, longitude: 75.0000000000000 });
+  const [coordinates, setCoordinates] = useState({ latitude: 0, longitude: 0 });
+  const [modalOpen, setModalOpen] = useState(false);
+
+  const close = () => setModalOpen(false);
+  const open = () => setModalOpen(true);
   useEffect(() => {
     if ('geolocation' in navigator) {
 
@@ -34,7 +23,6 @@ export default function Home() {
           const { latitude, longitude } = position.coords;
 
           setCoordinates({ latitude, longitude });
-
         },
         (error) => {
           console.error('Error getting coordinates:', error);
@@ -42,17 +30,40 @@ export default function Home() {
       );
     } else {
       console.error('Geolocation is not available in this browser.');
+
     }
+
   }, []);
   useEffect(() => {
-    fetchData(coordinates.latitude, coordinates.longitude)
-      .then((fetchedData) => setData(fetchedData ?? defaultData))
-      .catch((error) => console.error('Error fetching data:', error));
+    if (coordinates.latitude != 0 && coordinates.longitude != 0) {
+      close()
+      fetchData(coordinates.latitude, coordinates.longitude)
+        .then((fetchedData) => setData(fetchedData))
+        .catch((error) => console.error('Error fetching data:', error));
+
+
+    } else {
+      open()
+    }
   }, [coordinates]);
   const ref = useRef(null);
 
   return (
     <main className={styles.main}>
+      <AnimatePresence
+        initial={false}
+        // exitBeforeEnter={true}
+        onExitComplete={() => null}
+      >
+
+        {modalOpen && (
+          <Modal
+            key="modal" // Use a unique key to ensure proper animation
+            handleClose={close}
+          />
+        )}
+      </AnimatePresence>
+      {/* <div onClick={() => (modalOpen ? close() : open())}>Button</div> */}
       <Hero />
       <motion.div
         ref={ref}
@@ -79,3 +90,78 @@ export default function Home() {
     </main>
   )
 }
+interface BackdropProps {
+  children: ReactNode;
+  onClick: () => void;
+}
+
+
+const Backdrop: React.FC<BackdropProps> = ({ children, onClick }) => {
+  return (
+    <motion.div
+      onClick={onClick}
+      className="backdrop"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+    >
+      {children}
+    </motion.div>
+  );
+};
+
+const dropIn = {
+  hidden: {
+    y: "-100vh",
+    opacity: 0,
+  },
+  visible: {
+    y: "0",
+    opacity: 1,
+    transition: {
+      duration: 0.1,
+      type: "spring",
+      damping: 25,
+      stiffness: 500,
+    },
+  },
+  exit: {
+    y: "100vh",
+    opacity: 0,
+  },
+};
+
+interface ModalProps {
+  handleClose: () => void;
+}
+
+const Modal: React.FC<ModalProps> = ({ handleClose }) => {
+  const stopPropagation = (e: React.MouseEvent<HTMLDivElement>) => {
+    e.stopPropagation();
+  };
+
+  return (
+    <Backdrop onClick={handleClose}>
+      <motion.div
+        onClick={stopPropagation}
+        className="modal"
+        variants={dropIn} // Assuming you have defined the `dropIn` animation
+        initial="hidden"
+        animate="visible"
+        exit="exit"
+      >
+        <h4>⚠️ Please enable Location ⚠️</h4>
+        <ul>
+          <li>Turn on location services on your Android by going to &quot;<b>Chrome</b> &gt; <b>Settings</b> &gt; <b>Site settings</b> &gt; <b>Location</b>&quot;.</li>
+          <li>If you&apos;re using an iPhone or iPad, go to your phone&apos;s &quot;<b>Settings</b> &gt; <b>Chrome</b> &gt; <b>Location</b> &gt; <b>While using the app</b>&quot;.
+          </li>
+          <li>If you&apos;re using a computer, in Chrome, go to &quot;<b>Settings</b> &gt; <b>Site settings</b> &gt; <b>Location</b> &gt; <b>Sites can ask for your location</b> &quot;.
+          </li>
+
+        </ul>
+        <div className="close-icon" onClick={handleClose}></div>
+        {/* <button onClick={handleClose}>Close</button> */}
+      </motion.div>
+    </Backdrop>
+  );
+};
