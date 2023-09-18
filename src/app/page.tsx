@@ -25,7 +25,7 @@ export default function Home() {
     }
   ]
   const [data, setData] = useState<FoodSpots[] | null>(null);
-  const [coordinates, setCoordinates] = useState({ latitude:11.00000000000000, longitude: 75.0000000000000 });
+  const [coordinates, setCoordinates] = useState({ latitude: 0, longitude: 0 });
   useEffect(() => {
     if ('geolocation' in navigator) {
 
@@ -43,11 +43,14 @@ export default function Home() {
     } else {
       console.error('Geolocation is not available in this browser.');
     }
+
   }, []);
   useEffect(() => {
-    fetchData(coordinates.latitude, coordinates.longitude)
-      .then((fetchedData) => setData(fetchedData ?? defaultData))
-      .catch((error) => console.error('Error fetching data:', error));
+    if (coordinates.latitude != 0 && coordinates.longitude != 0) {
+      fetchData(coordinates.latitude, coordinates.longitude)
+        .then((fetchedData) => setData(fetchedData))
+        .catch((error) => console.error('Error fetching data:', error));
+    }
   }, [coordinates]);
   const ref = useRef(null);
 
