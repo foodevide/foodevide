@@ -152,10 +152,10 @@ const Modal: React.FC<ModalProps> = ({ handleClose }) => {
       >
         <h4>⚠️ Please enable Location ⚠️</h4>
         <ul>
-          <li>Turn on location services on your Android by going to "<b>Chrome</b> &gt; <b>Settings</b> &gt; <b>Site settings</b> &gt; <b>Location</b>".</li>
-          <li>If you're using an iPhone or iPad, go to your phone's "<b>Settings</b> &gt; <b>Chrome</b> &gt; <b>Location</b> &gt; <b>While using the app</b>".
+          <li>Turn on location services on your Android by going to &quot;<b>Chrome</b> &gt; <b>Settings</b> &gt; <b>Site settings</b> &gt; <b>Location</b>&quot;.</li>
+          <li>If you&apos;re using an iPhone or iPad, go to your phone&apos;s &quot;<b>Settings</b> &gt; <b>Chrome</b> &gt; <b>Location</b> &gt; <b>While using the app</b>&quot;.
           </li>
-          <li>If you're using a computer, in Chrome, go to "<b>Settings</b> &gt; <b>Site settings</b> &gt; <b>Location</b> &gt; <b>Sites can ask for your location</b> ".
+          <li>If you&apos;re using a computer, in Chrome, go to &quot;<b>Settings</b> &gt; <b>Site settings</b> &gt; <b>Location</b> &gt; <b>Sites can ask for your location</b> &quot;.
           </li>
 
         </ul>
