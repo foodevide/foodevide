@@ -12,7 +12,9 @@ export default function Home() {
   const [data, setData] = useState<FoodSpots[] | null>(null);
   const [coordinates, setCoordinates] = useState({ latitude: 0, longitude: 0 });
   const [modalOpen, setModalOpen] = useState(false);
-
+  const updateCood = (newCount:any) => {
+    setCoordinates(newCount);
+  };
   const close = () => setModalOpen(false);
   const open = () => setModalOpen(true);
   useEffect(() => {
@@ -47,7 +49,8 @@ export default function Home() {
     }
   }, [coordinates]);
   const ref = useRef(null);
-
+  
+  // const [coordinates, setCoordinates] = useState([12.345, 67.890]);
   return (
     <main className={styles.main}>
       <AnimatePresence
@@ -64,7 +67,7 @@ export default function Home() {
         )}
       </AnimatePresence>
       {/* <div onClick={() => (modalOpen ? close() : open())}>Button</div> */}
-      <Hero />
+      <Hero updateCood={updateCood}/>
       <motion.div
         ref={ref}
         initial={{ opacity: 0, scale: 0.5 }}
