@@ -139,7 +139,7 @@ export default function Hero({ updateCood  }: Props) {
               <SheetHeader>
                 <SheetTitle>Edit Location</SheetTitle>
                 <SheetDescription>
-                  Make changes to your profile here. Click save when you&apos;re done.
+                  Start typing to get location suggestions. Click Set Location when you&apos;re done.
                 </SheetDescription>
               </SheetHeader>
    <div>
@@ -155,7 +155,7 @@ export default function Hero({ updateCood  }: Props) {
       onChange={handleOptionChange}
     />
 
-      </div>
+      </div><br />
               <SheetFooter>
                 <SheetClose asChild>
                   <Button type="submit">Set Location</Button>
