@@ -153,7 +153,7 @@ const Modal: React.FC<ModalProps> = ({ handleClose }) => {
         animate="visible"
         exit="exit"
       >
-        <h4>⚠️ Please enable Location ⚠️</h4>
+        <h4>⚠️ Please enable Location or Select location ⚠️</h4>
         <ul>
           <li>Turn on location services on your Android by going to &quot;<b>Chrome</b> &gt; <b>Settings</b> &gt; <b>Site settings</b> &gt; <b>Location</b>&quot;.</li>
           <li>If you&apos;re using an iPhone or iPad, go to your phone&apos;s &quot;<b>Settings</b> &gt; <b>Chrome</b> &gt; <b>Location</b> &gt; <b>While using the app</b>&quot;.

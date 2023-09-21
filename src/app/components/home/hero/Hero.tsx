@@ -19,7 +19,7 @@ import { Input } from '@/ui-components/ui/input';
 import { useEffect, useState } from 'react';
 import { motion } from "framer-motion"
 import Select from 'react-select';
-
+import { FaMagnifyingGlassLocation } from 'react-icons/fa6';
 
 const meow = Meow_Script({ subsets: ['latin'], weight: ['400'] })
 interface Props {
@@ -60,7 +60,7 @@ export default function Hero({ updateCood  }: Props) {
           error => {
             // Handle geolocation error or fallback to a default city
             console.error('Geolocation error:', error);
-            setUserCity('Please enable location');
+            setUserCity('Please enable/select location');
           }
         );
       } else {
@@ -133,9 +133,7 @@ export default function Hero({ updateCood  }: Props) {
           }}
         > <Sheet>
             <SheetTrigger asChild>
-              <Button style={{ fontWeight: 700 }}> <p>{userCity}<span className="material-symbols-outlined">
-                keyboard_arrow_down
-              </span></p></Button>
+              <Button style={{ fontWeight: 700 ,margin:0,padding:0}}> <p className={styles.location}><FaMagnifyingGlassLocation/> {userCity}</p></Button>
             </SheetTrigger>
             <SheetContent side={'top'}>
               <SheetHeader>
