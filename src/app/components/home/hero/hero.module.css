@@ -49,7 +49,7 @@
 
 .hero>div:nth-child(3) p {
     display: inline;
-    font-size: 16px;
+    font-size: 17px;
     width: 200px;
     white-space: nowrap;
     text-overflow: ellipsis;
@@ -58,8 +58,9 @@
     
 }
 .hero>div:nth-child(3) p svg{
-    color: var(--orange);
+    /* color: var(--orange); */
     display: inline;
+    margin-bottom: 5px;
 }
 .hero>div:nth-child(3)>span>span {
     font-weight: 600;

@@ -19,7 +19,7 @@ import { Input } from '@/ui-components/ui/input';
 import { useEffect, useState } from 'react';
 import { motion } from "framer-motion"
 import Select from 'react-select';
-import { FaMagnifyingGlassLocation } from 'react-icons/fa6';
+import { FaLocationDot } from 'react-icons/fa6';
 
 const meow = Meow_Script({ subsets: ['latin'], weight: ['400'] })
 interface Props {
@@ -133,7 +133,7 @@ export default function Hero({ updateCood  }: Props) {
           }}
         > <Sheet>
             <SheetTrigger asChild>
-              <Button style={{ fontWeight: 700 ,margin:0,padding:0}}> <p className={styles.location}><FaMagnifyingGlassLocation/> {userCity}</p></Button>
+              <Button style={{ fontWeight: 700 ,margin:0,padding:0}}> <p className={styles.location}><FaLocationDot/> {userCity}</p></Button>
             </SheetTrigger>
             <SheetContent side={'top'}>
               <SheetHeader>
