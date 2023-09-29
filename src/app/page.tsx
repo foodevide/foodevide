@@ -2,7 +2,7 @@
 import { ReactNode } from "react";
 
 import Card from "./components/home/card/Card"
-import placesData from "./components/data/placesData"
+
 import styles from './layout.module.css'
 import Hero from "./components/home/hero/Hero"
 import { motion, AnimatePresence } from "framer-motion"
@@ -90,6 +90,11 @@ export default function Home() {
           ))}
 
       </motion.div>
+      <div className={styles.footer__copy}>
+        <span>©&nbsp;</span>
+        <span>{new Date().getFullYear()}&nbsp;</span>
+        <span>All Rights Reserved. Design &amp; Coded with ❤️️</span>
+      </div>
     </main>
   )
 }
@@ -154,15 +159,9 @@ const Modal: React.FC<ModalProps> = ({ handleClose }) => {
         exit="exit"
       >
         <h4>⚠️ Please enable Location or Select location ⚠️</h4>
-        <ul>
-          <li>Turn on location services on your Android by going to &quot;<b>Chrome</b> &gt; <b>Settings</b> &gt; <b>Site settings</b> &gt; <b>Location</b>&quot;.</li>
-          <li>If you&apos;re using an iPhone or iPad, go to your phone&apos;s &quot;<b>Settings</b> &gt; <b>Chrome</b> &gt; <b>Location</b> &gt; <b>While using the app</b>&quot;.
-          </li>
-          <li>If you&apos;re using a computer, in Chrome, go to &quot;<b>Settings</b> &gt; <b>Site settings</b> &gt; <b>Location</b> &gt; <b>Sites can ask for your location</b> &quot;.
-          </li>
-
-        </ul>
+        <p>Tap below to retry or close this window and choose prefered location</p>
         <div className="close-icon" onClick={handleClose}></div>
+        
         {/* <button onClick={handleClose}>Close</button> */}
       </motion.div>
     </Backdrop>

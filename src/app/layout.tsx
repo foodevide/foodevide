@@ -7,7 +7,7 @@ const inter = Inter({ subsets: ['latin'] })
 export const metadata: Metadata = {
   title: 'FoodEvide',
   description: 'Find Best Places Near You',
-  manifest:'/manifest.json',
+  manifest: '/manifest.json',
 }
 
 export default function RootLayout({
@@ -19,12 +19,13 @@ export default function RootLayout({
 
     <html lang="en">
       <head>
-      <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
-      <link href="https://api.mapbox.com/mapbox-gl-js/v2.6.1/mapbox-gl.css" rel="stylesheet"/>
+        <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+        <link href="https://api.mapbox.com/mapbox-gl-js/v2.6.1/mapbox-gl.css" rel="stylesheet" />
 
       </head>
       <body className={inter.className}>{children}</body>
+     
     </html>
   )
 }
