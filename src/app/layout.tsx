@@ -7,6 +7,7 @@ const inter = Inter({ subsets: ['latin'] })
 export const metadata: Metadata = {
   title: 'FoodEvide',
   description: 'Find Best Places Near You',
+  manifest:'/manifest.json',
 }
 
 export default function RootLayout({
