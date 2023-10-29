@@ -12,6 +12,7 @@ export default function Home() {
   const [data, setData] = useState<FoodSpots[] | null>(null);
   const [coordinates, setCoordinates] = useState({ latitude: 0, longitude: 0 });
   const [modalOpen, setModalOpen] = useState(false);
+  const [locationEnabled, setLocationEnabled] = useState<boolean | null>(null);
   const updateCood = (newCount:any) => {
     setCoordinates(newCount);
   };
@@ -23,19 +24,35 @@ export default function Home() {
       navigator.geolocation.getCurrentPosition(
         (position) => {
           const { latitude, longitude } = position.coords;
-
           setCoordinates({ latitude, longitude });
+          setLocationEnabled(true);
         },
         (error) => {
           console.error('Error getting coordinates:', error);
+          setLocationEnabled(false);
         }
       );
     } else {
       console.error('Geolocation is not available in this browser.');
-
+      setLocationEnabled(false);
     }
 
   }, []);
+  const handleRetry = () => {
+    setLocationEnabled(null);
+    // Try to get the user's location again
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        // Location is enabled after retry
+      
+        setLocationEnabled(true);
+      },
+      (error) => {
+        // Location is still not enabled or was denied by the user
+        setLocationEnabled(false);
+      }
+    );
+  };
   useEffect(() => {
     if (coordinates.latitude != 0 && coordinates.longitude != 0) {
       close()
@@ -63,11 +80,19 @@ export default function Home() {
           <Modal
             key="modal" // Use a unique key to ensure proper animation
             handleClose={close}
+            handleRetry={handleRetry}
           />
         )}
       </AnimatePresence>
       {/* <div onClick={() => (modalOpen ? close() : open())}>Button</div> */}
       <Hero updateCood={updateCood}/>
+      {locationEnabled === true && <p>Location is enabled.</p>}
+      {locationEnabled === false && (
+        <div>
+          <p>Location is not enabled.</p>
+          <button onClick={handleRetry}>Retry</button>
+        </div>
+      )}
       <motion.div
         ref={ref}
         initial={{ opacity: 0, scale: 0.5 }}
@@ -141,9 +166,10 @@ const dropIn = {
 
 interface ModalProps {
   handleClose: () => void;
+  handleRetry: () => void;
 }
 
-const Modal: React.FC<ModalProps> = ({ handleClose }) => {
+const Modal: React.FC<ModalProps> = ({ handleClose,handleRetry }) => {
   const stopPropagation = (e: React.MouseEvent<HTMLDivElement>) => {
     e.stopPropagation();
   };
@@ -160,8 +186,9 @@ const Modal: React.FC<ModalProps> = ({ handleClose }) => {
       >
         <h4>⚠️ Please enable Location or Select location ⚠️</h4>
         <p>Tap below to retry or close this window and choose prefered location</p>
+        <button onClick={handleRetry}>Retry</button>
         <div className="close-icon" onClick={handleClose}></div>
-        
+
         {/* <button onClick={handleClose}>Close</button> */}
       </motion.div>
     </Backdrop>

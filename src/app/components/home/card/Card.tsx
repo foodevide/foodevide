@@ -2,6 +2,7 @@ import styles from './card.module.css'
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion"
 import { useRouter } from 'next/navigation'
+import Link from 'next/link';
 
 export default function Card({ card_data }: any) {
     const ref = useRef(null);
@@ -16,11 +17,12 @@ export default function Card({ card_data }: any) {
         },
         hidden: { y: 60, opacity: 0, scale: 0.7 }
     };
-
+    const MotionLink = motion(Link)
     return (
         <>
-            <motion.div
-                onClick={() => router.push(`/${card_data.id}`)}
+   
+            <MotionLink
+                href={`/${card_data.id}`}
                 variants={cardVariants}
                 animate={isInView ? 'visible' : 'hidden'}
                 initial="hidden"
@@ -30,7 +32,7 @@ export default function Card({ card_data }: any) {
                 className={styles.card}
                 style={{ background: `url(${card_data.image})`,backgroundSize:'contain' }}
             >
-                <div>
+                <div className={styles.content1}>
                     <div className={styles.rating}>
                         <span className="material-symbols-outlined">
                         star
@@ -45,7 +47,7 @@ export default function Card({ card_data }: any) {
                     <h4>{card_data.name}</h4>
                     <p>{card_data.time}</p>
                 </div>
-            </motion.div>
+            </MotionLink>
 
         </>
     )

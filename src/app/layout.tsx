@@ -2,6 +2,7 @@ import './globals.css'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import * as React from 'react';
+import NextTopLoader from 'nextjs-toploader';
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
@@ -24,7 +25,18 @@ export default function RootLayout({
         <link href="https://api.mapbox.com/mapbox-gl-js/v2.6.1/mapbox-gl.css" rel="stylesheet" />
 
       </head>
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+      <NextTopLoader
+        color="#DE6737"
+        initialPosition={0.08}
+        crawlSpeed={200}
+        height={3}
+        crawl={true}
+        showSpinner={true}
+        easing="ease"
+        speed={200}
+      />
+        {children}</body>
      
     </html>
   )
