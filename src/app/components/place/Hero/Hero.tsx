@@ -14,7 +14,7 @@ const Hero:React.FC<HeroProps> = ({ imgURL, name }) => {
       
     return (
         <>
-            <section className={styles.banner} style={{background:`url(${heroData.imgURL})`,backgroundSize:'contain'}}>
+            <section className={styles.banner} style={{background:`url(${heroData.imgURL})`,backgroundSize:'cover'}}>
                 <div>
                     <h4>{heroData?.name}</h4>
                 </div>

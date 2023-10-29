@@ -1,4 +1,3 @@
-
 .reel {
     display: flex;
     width: 35%;
@@ -18,4 +17,8 @@
     font-style: normal;
     font-weight: 700;
     line-height: normal;
+}
+
+.disabled {
+    pointer-events: none;
 }

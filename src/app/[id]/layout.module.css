@@ -13,3 +13,21 @@
     gap: 8px;
     width: 100%;
 }
+.back{
+    position: fixed;
+    color: #ffffff;
+    background-color: var(--black-2);
+    left: 1rem;
+    top: 2rem;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-left: 7px;
+}
+.back>span{
+    /* font-size: 30px !important; */
+
+}

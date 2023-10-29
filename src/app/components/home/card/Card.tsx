@@ -30,7 +30,7 @@ export default function Card({ card_data }: any) {
                 whileTap={{ scale: 0.95 }}
                 ref={ref}
                 className={styles.card}
-                style={{ background: `url(${card_data.image})`,backgroundSize:'contain' }}
+                style={{ background: `url(${card_data.image})` }}
             >
                 <div className={styles.content1}>
                     <div className={styles.rating}>
