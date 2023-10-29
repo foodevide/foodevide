@@ -3,6 +3,7 @@ import axios from 'axios';
 export interface FoodSpots {
   id: number;
   name: string;
+  categories:any
   // Add more properties as needed based on your API response
 }
 export interface FoodSpot {

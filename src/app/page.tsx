@@ -8,16 +8,33 @@ import Hero from "./components/home/hero/Hero"
 import { motion, AnimatePresence } from "framer-motion"
 import { useRef, useState, useEffect } from "react";
 import { fetchData, FoodSpots } from '@/api/api';
+
+
 export default function Home() {
+  const categories=[
+    'All',
+    'Break Fast',
+    'Lunch',
+    'Dinner',
+    'Snacks'
+  ]
   const [data, setData] = useState<FoodSpots[] | null>(null);
   const [coordinates, setCoordinates] = useState({ latitude: 0, longitude: 0 });
   const [modalOpen, setModalOpen] = useState(false);
   const [locationEnabled, setLocationEnabled] = useState<boolean | null>(null);
+  const [category, setCategory] = useState<string>('All');
+  
   const updateCood = (newCount:any) => {
     setCoordinates(newCount);
   };
   const close = () => setModalOpen(false);
   const open = () => setModalOpen(true);
+  const updateCategory = (cat:string) => {
+   
+    setCategory(cat)
+    
+  }
+
   useEffect(() => {
     if ('geolocation' in navigator) {
 
@@ -75,7 +92,7 @@ export default function Home() {
     }
   }, [coordinates]);
   const ref = useRef(null);
-  
+
   // const [coordinates, setCoordinates] = useState([12.345, 67.890]);
   return (
     <main className={styles.main}>
@@ -94,7 +111,7 @@ export default function Home() {
         )}
       </AnimatePresence>
       {/* <div onClick={() => (modalOpen ? close() : open())}>Button</div> */}
-      <Hero updateCood={updateCood}/>
+      <Hero updateCood={updateCood} updateCategory={updateCategory}/>
       {/* {locationEnabled === true && <p>Location is enabled.</p>} */}
       {locationEnabled === false && (
         <div>
@@ -119,11 +136,17 @@ export default function Home() {
         }}
         className={styles.cards}>
         {data?.length == 0 ? "No Foodspots near you" :
-          data?.map((item: any, index: number) => (
-            <Card key={index} card_data={item} />
+          data
+          ?.filter((item) => categories.indexOf(category) === 0 || item.categories.includes(categories.indexOf(category)))
+          .map((item: any, index: number) => (
+            <Card key={index} card_data={item} categories={item.categories}/>
+            
           ))}
 
+
       </motion.div>
+   
+
       <div className={styles.footer__copy}>
         <span>©&nbsp;</span>
         <span>{new Date().getFullYear()}&nbsp;</span>
@@ -194,7 +217,7 @@ const Modal: React.FC<ModalProps> = ({ handleClose,handleRetry }) => {
         exit="exit"
       >
         <h4>⚠️ Please enable Location or Select location ⚠️</h4>
-        <p>Tap below to retry or close this window and choose prefered location. If retry didn't work go to site setting and enable it.</p>
+        <p>Tap below to retry or close this window and choose prefered location. If retry didn&apos;t work go to site setting and enable it.</p>
         <button onClick={handleRetry}>Retry</button>
         <div className="close-icon" onClick={handleClose}></div>
 

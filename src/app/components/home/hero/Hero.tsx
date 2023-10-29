@@ -24,13 +24,15 @@ import { FaLocationDot } from 'react-icons/fa6';
 const meow = Meow_Script({ subsets: ['latin'], weight: ['400'] })
 interface Props {
   updateCood: (newCount: any) => void;
+  updateCategory:(cat:string) => void
 }
+
 interface MapboxFeature {
   id: string;
   text: string;
 }
 const acces_token = 'pk.eyJ1IjoibW5hYmVlbDQ0NzciLCJhIjoiY2xpZ2Uwc3EwMGVpeDNkbndmdGV1aXc1cyJ9.9SwWDVi1jwmzmapVgHwHDw'
-export default function Hero({ updateCood  }: Props) {
+export default function Hero({ updateCood,updateCategory }: Props) {
   const [userCity, setUserCity] = useState<string>('');
   useEffect(() => {
     // Function to get the user's location
@@ -165,7 +167,7 @@ export default function Hero({ updateCood  }: Props) {
           </Sheet>
 
           <span>
-            <DropdownMenuRadioGroupDemo />
+            <DropdownMenuRadioGroupDemo updateFromDropdown={updateCategory}/>
           </span>
 
         </motion.div>
