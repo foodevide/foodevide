@@ -39,19 +39,28 @@ export default function Home() {
 
   }, []);
   const handleRetry = () => {
+    // Clear the previous location status
     setLocationEnabled(null);
-    // Try to get the user's location again
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        // Location is enabled after retry
-      
-        setLocationEnabled(true);
-      },
-      (error) => {
-        // Location is still not enabled or was denied by the user
-        setLocationEnabled(false);
-      }
-    );
+  
+    if ('geolocation' in navigator) {
+      // Try to get the user's location again
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          // Location is enabled after retry
+          setLocationEnabled(true);
+        },
+        (error) => {
+          // Location is still not enabled or was denied by the user
+          setLocationEnabled(false);
+          // You can also check the error object for more details
+          console.error('Error getting location:', error);
+        }
+      );
+    } else {
+      // Geolocation is not supported in this browser
+      setLocationEnabled(false);
+      console.error('Geolocation is not supported in this browser.');
+    }
   };
   useEffect(() => {
     if (coordinates.latitude != 0 && coordinates.longitude != 0) {
@@ -86,7 +95,7 @@ export default function Home() {
       </AnimatePresence>
       {/* <div onClick={() => (modalOpen ? close() : open())}>Button</div> */}
       <Hero updateCood={updateCood}/>
-      {locationEnabled === true && <p>Location is enabled.</p>}
+      {/* {locationEnabled === true && <p>Location is enabled.</p>} */}
       {locationEnabled === false && (
         <div>
           <p>Location is not enabled.</p>
@@ -185,7 +194,7 @@ const Modal: React.FC<ModalProps> = ({ handleClose,handleRetry }) => {
         exit="exit"
       >
         <h4>⚠️ Please enable Location or Select location ⚠️</h4>
-        <p>Tap below to retry or close this window and choose prefered location</p>
+        <p>Tap below to retry or close this window and choose prefered location. If retry didn't work go to site setting and enable it.</p>
         <button onClick={handleRetry}>Retry</button>
         <div className="close-icon" onClick={handleClose}></div>
 
