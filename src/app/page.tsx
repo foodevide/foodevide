@@ -2,40 +2,83 @@
 import { ReactNode } from "react";
 
 import Card from "./components/home/card/Card"
-import placesData from "./components/data/placesData"
+
 import styles from './layout.module.css'
 import Hero from "./components/home/hero/Hero"
 import { motion, AnimatePresence } from "framer-motion"
 import { useRef, useState, useEffect } from "react";
 import { fetchData, FoodSpots } from '@/api/api';
+
+
 export default function Home() {
+  const categories=[
+    'All',
+    'Break Fast',
+    'Lunch',
+    'Dinner',
+    'Snacks'
+  ]
   const [data, setData] = useState<FoodSpots[] | null>(null);
   const [coordinates, setCoordinates] = useState({ latitude: 0, longitude: 0 });
   const [modalOpen, setModalOpen] = useState(false);
+  const [locationEnabled, setLocationEnabled] = useState<boolean | null>(null);
+  const [category, setCategory] = useState<string>('All');
+  
   const updateCood = (newCount:any) => {
     setCoordinates(newCount);
   };
   const close = () => setModalOpen(false);
   const open = () => setModalOpen(true);
+  const updateCategory = (cat:string) => {
+   
+    setCategory(cat)
+    
+  }
+
   useEffect(() => {
     if ('geolocation' in navigator) {
 
       navigator.geolocation.getCurrentPosition(
         (position) => {
           const { latitude, longitude } = position.coords;
-
           setCoordinates({ latitude, longitude });
+          setLocationEnabled(true);
         },
         (error) => {
           console.error('Error getting coordinates:', error);
+          setLocationEnabled(false);
         }
       );
     } else {
       console.error('Geolocation is not available in this browser.');
-
+      setLocationEnabled(false);
     }
 
   }, []);
+  const handleRetry = () => {
+    // Clear the previous location status
+    setLocationEnabled(null);
+  
+    if ('geolocation' in navigator) {
+      // Try to get the user's location again
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          // Location is enabled after retry
+          setLocationEnabled(true);
+        },
+        (error) => {
+          // Location is still not enabled or was denied by the user
+          setLocationEnabled(false);
+          // You can also check the error object for more details
+          console.error('Error getting location:', error);
+        }
+      );
+    } else {
+      // Geolocation is not supported in this browser
+      setLocationEnabled(false);
+      console.error('Geolocation is not supported in this browser.');
+    }
+  };
   useEffect(() => {
     if (coordinates.latitude != 0 && coordinates.longitude != 0) {
       close()
@@ -49,7 +92,7 @@ export default function Home() {
     }
   }, [coordinates]);
   const ref = useRef(null);
-  
+
   // const [coordinates, setCoordinates] = useState([12.345, 67.890]);
   return (
     <main className={styles.main}>
@@ -63,11 +106,19 @@ export default function Home() {
           <Modal
             key="modal" // Use a unique key to ensure proper animation
             handleClose={close}
+            handleRetry={handleRetry}
           />
         )}
       </AnimatePresence>
       {/* <div onClick={() => (modalOpen ? close() : open())}>Button</div> */}
-      <Hero updateCood={updateCood}/>
+      <Hero updateCood={updateCood} updateCategory={updateCategory}/>
+      {/* {locationEnabled === true && <p>Location is enabled.</p>} */}
+      {locationEnabled === false && (
+        <div>
+          <p>Location is not enabled.</p>
+          <button onClick={handleRetry}>Retry</button>
+        </div>
+      )}
       <motion.div
         ref={ref}
         initial={{ opacity: 0, scale: 0.5 }}
@@ -85,11 +136,22 @@ export default function Home() {
         }}
         className={styles.cards}>
         {data?.length == 0 ? "No Foodspots near you" :
-          data?.map((item: any, index: number) => (
-            <Card key={index} card_data={item} />
+          data
+          ?.filter((item) => categories.indexOf(category) === 0 || item.categories.includes(categories.indexOf(category)))
+          .map((item: any, index: number) => (
+            <Card key={index} card_data={item} categories={item.categories}/>
+            
           ))}
 
+
       </motion.div>
+   
+
+      <div className={styles.footer__copy}>
+        <span>©&nbsp;</span>
+        <span>{new Date().getFullYear()}&nbsp;</span>
+        <span>All Rights Reserved. Design &amp; Coded with ❤️️</span>
+      </div>
     </main>
   )
 }
@@ -136,9 +198,10 @@ const dropIn = {
 
 interface ModalProps {
   handleClose: () => void;
+  handleRetry: () => void;
 }
 
-const Modal: React.FC<ModalProps> = ({ handleClose }) => {
+const Modal: React.FC<ModalProps> = ({ handleClose,handleRetry }) => {
   const stopPropagation = (e: React.MouseEvent<HTMLDivElement>) => {
     e.stopPropagation();
   };
@@ -154,15 +217,10 @@ const Modal: React.FC<ModalProps> = ({ handleClose }) => {
         exit="exit"
       >
         <h4>⚠️ Please enable Location or Select location ⚠️</h4>
-        <ul>
-          <li>Turn on location services on your Android by going to &quot;<b>Chrome</b> &gt; <b>Settings</b> &gt; <b>Site settings</b> &gt; <b>Location</b>&quot;.</li>
-          <li>If you&apos;re using an iPhone or iPad, go to your phone&apos;s &quot;<b>Settings</b> &gt; <b>Chrome</b> &gt; <b>Location</b> &gt; <b>While using the app</b>&quot;.
-          </li>
-          <li>If you&apos;re using a computer, in Chrome, go to &quot;<b>Settings</b> &gt; <b>Site settings</b> &gt; <b>Location</b> &gt; <b>Sites can ask for your location</b> &quot;.
-          </li>
-
-        </ul>
+        <p>Tap below to retry or close this window and choose prefered location. If retry didn&apos;t work go to site setting and enable it.</p>
+        <button onClick={handleRetry}>Retry</button>
         <div className="close-icon" onClick={handleClose}></div>
+
         {/* <button onClick={handleClose}>Close</button> */}
       </motion.div>
     </Backdrop>

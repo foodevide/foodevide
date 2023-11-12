@@ -1,15 +1,17 @@
 .card {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    width: 90%;
-    max-width: 475px;
-    min-height: 190px;
-    border-radius: 20px;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: space-between !important;
+    width: 90% !important;
+    max-width: 475px !important;
+    min-height: 190px !important;
+    border-radius: 20px !important;
     /* background: url(../home/images/1.jpg), lightgray 50% / cover no-repeat; */
     /* box-shadow: 4px 4px 8px 0px rgba(0, 0, 0, 0.25); */
-    overflow: hidden;
-    background-size: contain !important;
+    overflow: hidden !important;
+    background-size: cover !important;
+    background-repeat: no-repeat !important;
+    background-position: center !important;
 
 }
 
@@ -17,6 +19,7 @@
     display: flex;
     padding: 0.5rem;
     justify-content: space-between;
+    
 
 }
 

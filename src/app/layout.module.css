@@ -3,25 +3,34 @@
     flex-direction: column;
     gap: 1.5rem;
 }
+
 .cards {
 
     display: flex;
     gap: 1rem;
     flex-wrap: wrap;
     justify-content: center;
+    margin-bottom: 2rem;
+
 
 }
-.cards>a{
+.footer__copy{
+    display: flex;
+    text-align: center;
+    justify-content: center;
+}
+.cards>a {
     display: flex;
     justify-content: center;
     width: fit-content;
     overflow: hidden;
 
 }
+
 @media (max-width:486px) {
-    .cards>a{
+    .cards>a {
         width: 100%;
-    
+
     }
-    
+
 }

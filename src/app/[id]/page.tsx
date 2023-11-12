@@ -7,7 +7,7 @@ import Reel from '../components/place/Reel/Reel'
 import Menu from '../components/place/Menu/Menu'
 import { fetchDetail, FoodSpot } from '@/api/api';
 import { useState, useEffect } from "react";
-
+import Link from 'next/link';
 export default function Place({
   params
 }: {
@@ -43,6 +43,9 @@ const [latitude, longitude]: number[] = location.split(',').map(coord => parseFl
 
   return (
     <main className={styles.main}>
+      <Link href={'/'} className={styles.back}> <span className="material-symbols-outlined">
+arrow_back_ios
+</span></Link>
       <Header />
       {data != null ? (
         <>

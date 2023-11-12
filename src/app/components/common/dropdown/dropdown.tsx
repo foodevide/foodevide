@@ -15,20 +15,24 @@ import {
   DropdownMenuTrigger,
 } from "@/ui-components/ui/dropdown-menu"
 
-export default function DropdownMenuRadioGroupDemo() {
-  const [position, setPosition] = React.useState("All")
 
+interface Props{
+  updateFromDropdown:(newCat:string)=>void
+}
+export default function DropdownMenuRadioGroupDemo({updateFromDropdown}:Props) {
+  const [category, setCategory] = React.useState("All")
+  updateFromDropdown(category)
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button className="text-base font-semibold">{position}<span className="material-symbols-outlined">
+        <Button className="text-base font-semibold">{category}<span className="material-symbols-outlined">
                         keyboard_arrow_down
                     </span></Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56 bg-background">
         <DropdownMenuLabel>I&apos;m looking for</DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <DropdownMenuRadioGroup value={position} onValueChange={setPosition}>
+        <DropdownMenuRadioGroup value={category} onValueChange={setCategory}>
           <DropdownMenuRadioItem value="All">Everything</DropdownMenuRadioItem>
           <DropdownMenuRadioItem value="Break Fast">Break Fast</DropdownMenuRadioItem>
           <DropdownMenuRadioItem value="Lunch">Lunch</DropdownMenuRadioItem>
